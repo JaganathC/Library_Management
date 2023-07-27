@@ -1,26 +1,29 @@
 package Library;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JToolBar;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import java.awt.SystemColor;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class Returnbook extends JFrame {
+public class IssuePage extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField username;
+	private JPasswordField passwordField;
+	protected Object correctdetails;
 
 	/**
 	 * Launch the application.
@@ -29,7 +32,7 @@ public class Returnbook extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Returnbook frame = new Returnbook();
+					IssuePage frame = new IssuePage();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,83 +44,63 @@ public class Returnbook extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Returnbook() {
+	public IssuePage() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 638, 470);
+		setBounds(100, 100, 938, 527);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(102, 102, 102));
-		contentPane.setForeground(new Color(51, 153, 102));
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setForeground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Book Id");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		lblNewLabel.setBounds(111, 77, 89, 42);
+		JLabel lblNewLabel = new JLabel("-----Book Issue Portal-----");
+		lblNewLabel.setBounds(266, 25, 401, 43);
+		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 36));
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblStudentId = new JLabel("Student ID");
-		lblStudentId.setForeground(new Color(255, 255, 255));
-		lblStudentId.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		lblStudentId.setBounds(111, 136, 89, 42);
-		contentPane.add(lblStudentId);
+		JLabel student = new JLabel("Enter Student Username");
+		student.setForeground(Color.BLACK);
+		student.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 23));
+		student.setBounds(117, 158, 285, 36);
+		contentPane.add(student);
 		
-		JLabel lblIssueDate = new JLabel("Issue Date");
-		lblIssueDate.setForeground(new Color(255, 255, 255));
-		lblIssueDate.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		lblIssueDate.setBounds(111, 188, 89, 42);
-		contentPane.add(lblIssueDate);
+		username = new JTextField();
+		username.setBounds(409, 151, 307, 43);
+		contentPane.add(username);
+		username.setColumns(10);
 		
-		JLabel lblDueDate = new JLabel("Due Date");
-		lblDueDate.setForeground(new Color(255, 255, 255));
-		lblDueDate.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		lblDueDate.setBounds(111, 240, 89, 42);
-		contentPane.add(lblDueDate);
+		JLabel studentpwd = new JLabel("Enter Student Password");
+		studentpwd.setForeground(Color.BLACK);
+		studentpwd.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 23));
+		studentpwd.setBounds(117, 251, 285, 36);
+		contentPane.add(studentpwd);
 		
-		textField = new JTextField();
-		textField.setBounds(266, 77, 167, 33);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		passwordField = new JPasswordField();
+		passwordField.setBounds(410, 244, 306, 43);
+		contentPane.add(passwordField);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(266, 136, 167, 33);
-		contentPane.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(266, 195, 167, 33);
-		contentPane.add(textField_2);
-		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(266, 247, 167, 33);
-		contentPane.add(textField_3);
-		
-		JButton btnNewButton = new JButton("Search");
-		btnNewButton.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 10));
-		btnNewButton.setBounds(462, 136, 94, 34);
+		JButton btnNewButton = new JButton("LOGIN");
+		btnNewButton.setFont(new Font("Copperplate Gothic Light", Font.BOLD, 22));
+		btnNewButton.setBounds(341, 354, 154, 49);
 		contentPane.add(btnNewButton);
-		
-		JButton btnReturn = new JButton("Return");
-		btnReturn.setBackground(new Color(204, 255, 102));
-		btnReturn.setForeground(new Color(0, 0, 0));
-		btnReturn.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 10));
-		btnReturn.setBounds(158, 325, 94, 34);
-		contentPane.add(btnReturn);
-		
-		JButton btnClose = new JButton("Close");
-		btnClose.addActionListener(new ActionListener() {
+		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				String studentname = username.getText();
+				char[] pw = passwordField.getPassword();
+				String password = new String(pw);
+				LibraryManagement lib = new LibraryManagement();
+				User validatedUser=lib.userLogin(studentname,password);
+				//USE THIS LINE FOR SUCCESSFUL login
+				//JOptionPane.showMessageDialog(null,"SUCESSFULLY LOGGED IN!!!");
+				//USE THIS LINE FOR UNSUCCESSFUL UPDATION
+				//JOptionPane.showMessageDialog(null,"UNSUCCESSFUL LOGIN!!!");
+				
 			}
 		});
-		btnClose.setBackground(new Color(255, 0, 0));
-		btnClose.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 10));
-		btnClose.setBounds(321, 325, 94, 34);
-		contentPane.add(btnClose);
+		
+		
 	}
-
 }
